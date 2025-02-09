@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model UserAdmin {
+  email    String @id @db.VarChar(100)
+  password String @db.VarChar(255)
+  role     String @db.VarChar(50)
+}
+
+model Supplier {
+  supplierID    String   @id @db.VarChar(50)
+  firstName     String   @db.VarChar(100)
+  lastName      String   @db.VarChar(100)
+  gender        String   @db.VarChar(10)
+  joinedDate    DateTime
+  dob           DateTime
+  addressLine01 String   @db.VarChar(255)
+  addressLine02 String?  @db.VarChar(255)
+  addressLine03 String?  @db.VarChar(255)
+  addressLine04 String?  @db.VarChar(255)
+  addressLine05 String?  @db.VarChar(255)
+  postalCode    String   @db.VarChar(20)
+  contactNo     String   @db.VarChar(20)
+  email         String   @unique @db.VarChar(100)
+
+  rawMaterialStocks RawMaterialStock[]
+}
+
+model Employee {
+  employeeID    String   @id @db.VarChar(50)
+  firstName     String   @db.VarChar(100)
+  lastName      String   @db.VarChar(100)
+  designation   String   @db.VarChar(100)
+  gender        String   @db.VarChar(10)
+  joinedDate    DateTime
+  dob           DateTime
+  addressLine01 String   @db.VarChar(255)
+  addressLine02 String?  @db.VarChar(255)
+  addressLine03 String?  @db.VarChar(255)
+  addressLine04 String?  @db.VarChar(255)
+  addressLine05 String?  @db.VarChar(255)
+  postalCode    String   @db.VarChar(20)
+  contactNo     String   @db.VarChar(20)
+  email         String   @unique @db.VarChar(100)
+}
+
+model RawMaterialStock {
+  stockID      Int      @id @default(autoincrement())
+  supplierID   String
+  quantityInKg Decimal  @db.Decimal(10, 2)
+  dateReceived DateTime
+
+  supplier    Supplier     @relation(fields: [supplierID], references: [supplierID])
+  productions Production[]
+}
+
+model Production {
+  productionID      Int      @id @default(autoincrement())
+  stockID           Int
+  processDate       DateTime
+  processedQuantity Decimal  @db.Decimal(10, 2)
+
+  rawMaterialStock RawMaterialStock @relation(fields: [stockID], references: [stockID])
+}
+
+model Product {
+  productID  Int     @id @default(autoincrement())
+  name       String  @db.VarChar(100)
+  type       String? @db.VarChar(50)
+  pricePerKg Decimal @db.Decimal(10, 2)
+}
