@@ -11,7 +11,7 @@ router.post("/add", async (req, res) => {
        res.status(201).json(addedSupplier);
    }catch (error) {
        console.log(`Error adding supplier: ${error}`);
-       res.status(500).send("Error addig supplier");
+       res.status(500).send("Error adding supplier");
    }
 });
 
