@@ -1,6 +1,6 @@
 
 export default class Product{
-    productID!: number;
+    productID!: string;
     name!: string;
     type?: string;
     pricePerKg!: number;

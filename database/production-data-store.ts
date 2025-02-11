@@ -40,7 +40,7 @@ export async function updateProduction(id: string, production: Production) {
                 productionID: id
             },
             data: {
-                stockID: production.stockID,
+                stockID:production.stockID,
                 processDate: production.processDate,
                 processedQuantity: production.processedQuantity
             }

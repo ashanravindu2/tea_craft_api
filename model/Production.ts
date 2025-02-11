@@ -1,8 +1,8 @@
 import Supplier from "./RawMaterialStock";
 
 export default class Production{
-    productionID!: number;
-    stockID!: number;
+    productionID!: string;
+    stockID!: string;
     processDate!: Date | string;
     processedQuantity!: number;
 }
