@@ -7,7 +7,7 @@ export async function addSupplier(supplier:Supplier) {
     try {
         return await prisma.supplier.create({
             data: {
-                supplierID: supplier.supplierId,
+                supplierID: supplier.supplierID,
                 firstName: supplier.firstName,
                 lastName: supplier.lastName,
                 gender: supplier.gender,
@@ -29,7 +29,7 @@ export async function addSupplier(supplier:Supplier) {
     }
 }
 
-export async function deleteSupplier(id: string) {
+export async function deleteSupplier(id: any) {
     try {
         return await prisma.supplier.delete({
             where: {

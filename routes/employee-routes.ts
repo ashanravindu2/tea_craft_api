@@ -17,8 +17,8 @@ router.post("/add", async (req, res) => {
 
 });
 
-router.delete("/remove/:employeeId", async (req, res) => {
-    const employeeId: string = req.params.employeeId;
+router.delete("/remove/:employeeID", async (req, res) => {
+    const employeeId: string = req.params.employeeID;
     try {
         const deletedEmployee = await deleteEmployee(employeeId);
         res.status(200).json(deletedEmployee);
@@ -28,8 +28,8 @@ router.delete("/remove/:employeeId", async (req, res) => {
     }
 });
 
-router.put("/update/:employeeId", async (req, res) => {
-    const employeeId: string = req.params.employeeId;
+router.put("/update/:employeeID", async (req, res) => {
+    const employeeId: string = req.params.employeeID;
     const employee: Employee = req.body as Employee;
     try {
         const updatedEmployee = await updateEmployee(employeeId, employee);

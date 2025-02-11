@@ -1,7 +1,7 @@
 
 
 export default class Employee {
-    employeeId!: string;
+    employeeID!: string;
     firstName!: string;
     lastName: string;
     designation!: string;

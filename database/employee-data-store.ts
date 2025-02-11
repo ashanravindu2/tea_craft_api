@@ -9,7 +9,7 @@ export async function addEmployee(employee:Employee) {
     try {
        return await  prisma.employee.create({
             data: {
-                employeeID:employee.employeeId,
+                employeeID: employee.employeeID,
                 firstName: employee.firstName,
                 lastName: employee.lastName,
                 designation: employee.designation,
@@ -35,9 +35,9 @@ export async function addEmployee(employee:Employee) {
 export async function deleteEmployee(id: string) {
     try {
         return await prisma.employee.delete({
-            where: {
+           where:{
                 employeeID: id
-            }
+           }
         });
     } catch (error) {
         console.error(`Error deleting employee: ${error}`);

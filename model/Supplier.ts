@@ -1,6 +1,6 @@
 
 export default class Supplier{
-    supplierId!: string ;
+    supplierID!: string ;
     firstName!: string;
     lastName: string;
     gender!: string;

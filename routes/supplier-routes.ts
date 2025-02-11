@@ -35,7 +35,7 @@ router.put("/update/:supplierID", async (req, res) => {
     } catch (e) {
          console.log(`Error updating supplier: ${e}`);
          res.status(500).send("Error updating supplier");
-    }ss
+    }
 });
 
 router.get("/all", async (req, res) => {
