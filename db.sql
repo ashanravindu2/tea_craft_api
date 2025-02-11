@@ -44,7 +44,7 @@ CREATE TABLE employees (
 );
 
 CREATE TABLE rawMaterialStock (
-                                  stockID INT PRIMARY KEY AUTO_INCREMENT,
+                                  stockID VARCHAR(50) PRIMARY KEY ,
                                   supplierID VARCHAR(50),
                                   quantityInKg DECIMAL(10,2) NOT NULL,
                                   dateReceived DATE,
@@ -52,7 +52,7 @@ CREATE TABLE rawMaterialStock (
 );
 
 CREATE TABLE production (
-                            productionID INT PRIMARY KEY AUTO_INCREMENT,
+                            productionID VARCHAR(50) PRIMARY KEY,
                             stockID INT,
                             processDate DATE NOT NULL,
                             processedQuantity DECIMAL(10,2) NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE production (
 );
 
 CREATE TABLE products (
-                          productID INT PRIMARY KEY AUTO_INCREMENT,
+                          productID VARCHAR(50) PRIMARY KEY ,
                           name VARCHAR(100) NOT NULL,
                           type VARCHAR(50),
                           pricePerKg DECIMAL(10,2) NOT NULL

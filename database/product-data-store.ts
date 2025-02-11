@@ -20,7 +20,7 @@ export async function addProduct(product:Product) {
     }
 }
 
-export async function deleteProduct(id: any) {
+export async function deleteProduct(id: string) {
     try{
         return await prisma.product.delete({
           where:{
@@ -33,7 +33,7 @@ export async function deleteProduct(id: any) {
     }
 }
 
-export async function updateProduct(id: any, product: Product) {
+export async function updateProduct(id: string, product: Product) {
     try{
         return await prisma.product.update({
             where: {
@@ -60,7 +60,7 @@ export async function getProducts() {
     }
 }
 
-export async function getProductById(id: number) {
+export async function getProductById(id: string) {
     try{
         return await prisma.product.findUnique({
             where: {

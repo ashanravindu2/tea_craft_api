@@ -20,7 +20,7 @@ export async function addProduction(production:Production) {
     }
 }
 
-export async function deleteProduction(id: any) {
+export async function deleteProduction(id: string) {
     try{
         return await prisma.production.delete({
             where: {
@@ -33,7 +33,7 @@ export async function deleteProduction(id: any) {
     }
 }
 
-export async function updateProduction(id: any, production: Production) {
+export async function updateProduction(id: string, production: Production) {
     try{
         return await prisma.production.update({
             where: {
@@ -61,7 +61,7 @@ export async function getProductions() {
     }
 }
 
-export async function getProductionById(id: any) {
+export async function getProductionById(id: string) {
     try{
         return await prisma.production.findUnique({
             where: {

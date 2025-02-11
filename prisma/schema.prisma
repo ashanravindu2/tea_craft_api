@@ -57,7 +57,7 @@ model Employee {
 }
 
 model RawMaterialStock {
-  stockID      Int      @id @default(autoincrement())
+  stockID      String   @id @db.VarChar(50)
   supplierID   String
   quantityInKg Decimal  @db.Decimal(10, 2)
   dateReceived DateTime
@@ -67,8 +67,8 @@ model RawMaterialStock {
 }
 
 model Production {
-  productionID      Int      @id @default(autoincrement())
-  stockID           Int
+  productionID      String   @id @db.VarChar(50)
+  stockID           String
   processDate       DateTime
   processedQuantity Decimal  @db.Decimal(10, 2)
 
@@ -76,7 +76,7 @@ model Production {
 }
 
 model Product {
-  productID  Int     @id @default(autoincrement())
+  productID  String  @id @db.VarChar(50)
   name       String  @db.VarChar(100)
   type       String? @db.VarChar(50)
   pricePerKg Decimal @db.Decimal(10, 2)

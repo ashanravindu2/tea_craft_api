@@ -21,7 +21,7 @@ export async function addRawMaterialStock(rawMaterialStock:RawMaterialStock) {
     }
 }
 
-export async function deleteRawMaterialStock(id: any) {
+export async function deleteRawMaterialStock(id: string) {
     try{
         return await prisma.rawMaterialStock.delete({
             where : {
@@ -34,7 +34,7 @@ export async function deleteRawMaterialStock(id: any) {
     }
 }
 
-export async function updateRawMaterialStock(id: any, rawMaterialStock: RawMaterialStock) {
+export async function updateRawMaterialStock(id: string, rawMaterialStock: RawMaterialStock) {
     try {
         return await prisma.rawMaterialStock.update({
             where: {
@@ -61,7 +61,7 @@ export async function getRawMaterialStocks() {
     }
 }
 
-export async function getRawMaterialStockById(id: any) {
+export async function getRawMaterialStockById(id: string) {
     try {
         return await prisma.rawMaterialStock.findUnique({
             where: {
