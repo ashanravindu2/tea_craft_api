@@ -1,4 +1,5 @@
-import {PrismaClient, UserAdmin} from "@prisma/client";
+import {PrismaClient} from "@prisma/client";
+import UserAdmin from "../model/UserAdmin";
 
 const prisma = new PrismaClient();
 

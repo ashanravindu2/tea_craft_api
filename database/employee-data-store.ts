@@ -14,8 +14,8 @@ export async function addEmployee(employee:Employee) {
                 lastName: employee.lastName,
                 designation: employee.designation,
                 gender: employee.gender,
-                joinedDate: employee.joinedDate,
-                dob: employee.dob,
+                joinedDate: new Date(), // ✅ Set to current date
+                dob: new Date(), // ✅ Convert to Date
                 addressLine01: employee.addressLine01,
                 addressLine02: employee.addressLine02,
                 addressLine03: employee.addressLine03,
@@ -27,7 +27,7 @@ export async function addEmployee(employee:Employee) {
             }
         });
     } catch (error) {
-        console.error(`Error adding supplier: ${error}`);
+        console.error(`Error adding employee: ${error}`);
         throw error;
     }
 }
