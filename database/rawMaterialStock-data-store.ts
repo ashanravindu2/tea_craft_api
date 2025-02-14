@@ -12,7 +12,7 @@ export async function addRawMaterialStock(rawMaterialStock:RawMaterialStock) {
                 stockID:rawMaterialStock.stockID,
                 supplierID:rawMaterialStock.supplierID,
                 quantityInKg:rawMaterialStock.quantityInKg,
-                dateReceived:rawMaterialStock.dateReceived
+                dateReceived:new Date(),
             }
         });
     } catch (error) {
@@ -43,7 +43,7 @@ export async function updateRawMaterialStock(id: string, rawMaterialStock: RawMa
             data: {
                 supplierID: rawMaterialStock.supplierID,
                 quantityInKg: rawMaterialStock.quantityInKg,
-                dateReceived: rawMaterialStock.dateReceived
+                dateReceived: new Date(),
             }
         });
     }catch (error){
