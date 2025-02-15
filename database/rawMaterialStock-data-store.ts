@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export async function addRawMaterialStock(rawMaterialStock:RawMaterialStock) {
     try {
-        return await prisma.rawMaterialStock.create({
+        return await prisma.rawmaterialstock.create({
             data: {
                 stockID:rawMaterialStock.stockID,
                 supplierID:rawMaterialStock.supplierID,
@@ -23,7 +23,7 @@ export async function addRawMaterialStock(rawMaterialStock:RawMaterialStock) {
 
 export async function deleteRawMaterialStock(id: string) {
     try{
-        return await prisma.rawMaterialStock.delete({
+        return await prisma.rawmaterialstock.delete({
             where : {
                stockID: id
             }
@@ -36,7 +36,7 @@ export async function deleteRawMaterialStock(id: string) {
 
 export async function updateRawMaterialStock(id: string, rawMaterialStock: RawMaterialStock) {
     try {
-        return await prisma.rawMaterialStock.update({
+        return await prisma.rawmaterialstock.update({
             where: {
                 stockID: id
             },
@@ -54,7 +54,7 @@ export async function updateRawMaterialStock(id: string, rawMaterialStock: RawMa
 
 export async function getRawMaterialStocks() {
     try {
-        return await prisma.rawMaterialStock.findMany();
+        return await prisma.rawmaterialstock.findMany();
     } catch (error) {
         console.error(`Error getting rawMaterialStocks: ${error}`);
         throw error;
@@ -63,7 +63,7 @@ export async function getRawMaterialStocks() {
 
 export async function getRawMaterialStockById(id: string) {
     try {
-        return await prisma.rawMaterialStock.findUnique({
+        return await prisma.rawmaterialstock.findUnique({
             where: {
                 stockID: id
             }

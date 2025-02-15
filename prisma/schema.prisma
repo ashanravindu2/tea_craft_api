@@ -13,8 +13,8 @@ model employee {
   lastName      String   @db.VarChar(100)
   designation   String   @db.VarChar(100)
   gender        String   @db.VarChar(10)
-  joinedDate    DateTime
-  dob           DateTime
+  joinedDate    DateTime @db.Date
+  dob           DateTime @db.Date
   addressLine01 String   @db.VarChar(255)
   addressLine02 String?  @db.VarChar(255)
   addressLine03 String?  @db.VarChar(255)
@@ -22,7 +22,7 @@ model employee {
   addressLine05 String?  @db.VarChar(255)
   postalCode    String   @db.VarChar(20)
   contactNo     String   @db.VarChar(20)
-  email         String   @unique(map: "Employee_email_key") @db.VarChar(100)
+  email         String   @unique(map: "email") @db.VarChar(100)
 }
 
 model product {
@@ -34,20 +34,21 @@ model product {
 
 model production {
   productionID      String   @id @db.VarChar(50)
-  stockID           String
-  processDate       DateTime
+  stockID           String?  @db.VarChar(50)
+  processDate       DateTime @db.Date
   processedQuantity Decimal  @db.Decimal(10, 2)
+  logs              String?  @db.VarChar(255)
 
-  @@index([stockID], map: "Production_stockID_fkey")
+  @@index([stockID], map: "stockID")
 }
 
 model rawmaterialstock {
-  stockID      String   @id @db.VarChar(50)
-  supplierID   String
-  quantityInKg Decimal  @db.Decimal(10, 2)
-  dateReceived DateTime
+  stockID      String    @id @db.VarChar(50)
+  supplierID   String?   @db.VarChar(50)
+  quantityInKg Decimal   @db.Decimal(10, 2)
+  dateReceived DateTime? @db.Date
 
-  @@index([supplierID], map: "RawMaterialStock_supplierID_fkey")
+  @@index([supplierID], map: "supplierID")
 }
 
 model supplier {
@@ -55,8 +56,8 @@ model supplier {
   firstName     String   @db.VarChar(100)
   lastName      String   @db.VarChar(100)
   gender        String   @db.VarChar(10)
-  joinedDate    DateTime
-  dob           DateTime
+  joinedDate    DateTime @db.Date
+  dob           DateTime @db.Date
   addressLine01 String   @db.VarChar(255)
   addressLine02 String?  @db.VarChar(255)
   addressLine03 String?  @db.VarChar(255)
@@ -64,11 +65,11 @@ model supplier {
   addressLine05 String?  @db.VarChar(255)
   postalCode    String   @db.VarChar(20)
   contactNo     String   @db.VarChar(20)
-  email         String   @unique(map: "Supplier_email_key") @db.VarChar(100)
+  email         String   @unique(map: "email") @db.VarChar(100)
 }
 
 model useradmin {
   email    String @id @db.VarChar(100)
-  password String @db.VarChar(255)
+  password String @unique(map: "password") @db.VarChar(255)
   role     String @db.VarChar(50)
 }

@@ -1,54 +1,86 @@
 import express from "express";
-import {addUserAdmin, deleteUserAdmin, getUserAdmin, updateUserAdmin} from "../database/userAdmin-data-store";
 import UserAdmin from "../model/UserAdmin";
+import {createUser, verifyUserCredentials} from "../database/userAdmin-data-store";
+import dotenv from 'dotenv';
+import jwt, {Secret} from 'jsonwebtoken';
+
+dotenv.config();
 
 const router = express.Router();
 
-router.post("/add", async (req, res) => {
-    const user = req.body;
+router.post("/login", async (req, res) => {
+    console.log('Login')
+    const email = req.body.user.email;
+    const password = req.body.user.password;
+
+    const user : UserAdmin= {email, password, role: 'admin'};
+
     try{
-        const addedUser = await addUserAdmin(user);
-        res.status(201).json(user);
-    }catch (error) {
-        console.error(`Error adding user: ${error}`);
-        res.status(500).send("Error adding user");
-    }
-});
+        const isVerified =  await verifyUserCredentials(user);
 
-router.delete("/remove/:email", async (req, res) => {
-    const email: string = req.params.email;
+        if(isVerified){
+            const token = jwt.sign({ email }, process.env.SECRET_KEY as Secret, {expiresIn: "1m"});
+            const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN as Secret, {expiresIn: "7d"});
+            res.json({accessToken : token, refreshToken : refreshToken});
+        }else{
+            res.sendStatus(403).send('Invalid credentials')
+        }
+    }catch(err){
+        console.log(err);
+        res.status(400).send(err);
+    }
+})
+
+
+router.post("/register", async (req, res) => {
+    console.log('Register', req.body);
+    const email = req.body.user.email;
+    const password = req.body.user.password;
+    const role = req.body.user.role;
+
+    const user : UserAdmin  = {email, password,role};
+
     try{
-        const deletedUser = await deleteUserAdmin(email);
-        res.status(200).json(deletedUser);
-    }catch (error) {
-        console.error(`Error deleting user: ${error}`);
-        res.status(500).send("Error deleting user");
+        const registration = await createUser(user);
+        res.status(201).json(registration);
+    }catch(err){
+        console.log(err);
+        res.status(401).json(err);
     }
-});
 
-router.put("/update/:email", async (req, res) => {
-    const email: string = req.params.email;
-    const user:UserAdmin = req.body as UserAdmin;
+})
+
+router.post("/refresh-token", async (req, res) => {
+    const authHeader = req.headers.authorization;
+    const refresh_token = authHeader?.split(' ')[1];
+
+    if(!refresh_token)res.status(401).send('No token provided');
+
     try{
-        const updatedUser = await updateUserAdmin(email, user);
-        res.status(200).json(updatedUser);
-    }catch (error) {
-        console.error(`Error updating user: ${error}`);
-        res.status(500).send("Error updating user");
+        const payload = jwt.verify(refresh_token as string, process.env.REFRESH_TOKEN as Secret) as {email: string, iat: number};
+        const token = jwt.sign({ email: payload.email }, process.env.SECRET_KEY as Secret, {expiresIn: "1m"});
+        res.json({accessToken : token});
+    }catch(err){
+        console.log(err);
+        res.status(401).json(err);
     }
-});
+})
 
-router.get("/get", async (req, res) => {
+export function authenticateToken(req : express.Request, res : express.Response, next : express.NextFunction){
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(' ')[1];
+
+    console.log(token);
+    if(!token)res.status(401).send('No token provided');
+
     try{
-        const email: string = req.query.email as string;
-        const user = await getUserAdmin(email);
-        res.status(200).json(user);
-    }catch (error) {
-        console.error(`Error getting user: ${error}`);
-        res.status(500).send("Error getting user");
+        const payload = jwt.verify(token as string, process.env.SECRET_KEY as Secret) as {email: string, iat: number};
+        console.log(payload.email);
+        req.body.email = payload.email;
+        next();
+    }catch(err){
+        res.status(401).send(err);
     }
-});
-
-
+}
 
 export default router;

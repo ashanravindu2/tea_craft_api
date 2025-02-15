@@ -5,10 +5,10 @@ USE TeaFactoryDB;
 CREATE TABLE userAdmin (
                            email VARCHAR(100) PRIMARY KEY,
                            password VARCHAR(255) UNIQUE NOT NULL,
-                           Role ENUM('Admin', 'Manager', 'Employee') NOT NULL
+                           role VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE suppliers (
+CREATE TABLE supplier (
                            supplierID VARCHAR(50) PRIMARY KEY,
                            firstName VARCHAR(100) NOT NULL,
                            lastName VARCHAR(100) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE suppliers (
                            email VARCHAR(100) UNIQUE NOT NULL
 );
 
-CREATE TABLE employees (
+CREATE TABLE employee(
                            employeeID VARCHAR(50) PRIMARY KEY,
                            firstName VARCHAR(100) NOT NULL,
                            lastName VARCHAR(100) NOT NULL,
@@ -48,18 +48,19 @@ CREATE TABLE rawMaterialStock (
                                   supplierID VARCHAR(50),
                                   quantityInKg DECIMAL(10,2) NOT NULL,
                                   dateReceived DATE,
-                                  FOREIGN KEY (supplierID) REFERENCES suppliers(supplierID)
+                                  FOREIGN KEY (supplierID) REFERENCES supplier(supplierID)
 );
 
 CREATE TABLE production (
                             productionID VARCHAR(50) PRIMARY KEY,
-                            stockID INT,
+                            stockID VARCHAR(50),
                             processDate DATE NOT NULL,
                             processedQuantity DECIMAL(10,2) NOT NULL,
+                            logs VARCHAR(255),
                             FOREIGN KEY (stockID) REFERENCES rawMaterialStock(stockID)
 );
 
-CREATE TABLE products (
+CREATE TABLE product (
                           productID VARCHAR(50) PRIMARY KEY ,
                           name VARCHAR(100) NOT NULL,
                           type VARCHAR(50),

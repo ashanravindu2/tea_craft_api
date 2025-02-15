@@ -11,6 +11,7 @@ export async function addProduction(production:Production) {
                 productionID: production.productionID,
                 stockID: production.stockID,
                 processDate: production.processDate,
+                logs: production.logs,
                 processedQuantity: production.processedQuantity
             }
         });
@@ -42,6 +43,7 @@ export async function updateProduction(id: string, production: Production) {
             data: {
                 stockID:production.stockID,
                 processDate: production.processDate,
+                logs: production.logs,
                 processedQuantity: production.processedQuantity
             }
         });
