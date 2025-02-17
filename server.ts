@@ -3,11 +3,12 @@ import supplierRoutes from "./routes/supplier-routes";
 import employeeRoutes from "./routes/employee-routes";
 import rawMaterialStockRoutes from "./routes/rawMaterialStock-routes";
 import productionRoutes from "./routes/production-routes";
-import productRoutes from "./routes/product-routes";
+
 import userAdminRoutes, {authenticateToken} from "./routes/userAdmin-routes";
 import dotenv from "dotenv";
 import cors from "cors";
 import Supplier from "./model/Supplier";
+import logRoutes from "./routes/log-routes";
 
 const app = express();
 
@@ -50,7 +51,7 @@ app.use('/rawMaterial',rawMaterialStockRoutes)
 
 app.use('/production',productionRoutes)
 
-app.use('/product',productRoutes)
+app.use('/log',logRoutes)
 
 
 

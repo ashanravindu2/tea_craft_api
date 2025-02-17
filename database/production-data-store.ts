@@ -9,7 +9,7 @@ export async function addProduction(production:Production) {
        return await  prisma.production.create({
             data: {
                 productionID: production.productionID,
-                stockID: production.stockID,
+                qualityChecks: production.qualityChecks,
                 processDate: production.processDate,
                 logs: production.logs,
                 processedQuantity: production.processedQuantity
@@ -41,7 +41,7 @@ export async function updateProduction(id: string, production: Production) {
                 productionID: id
             },
             data: {
-                stockID:production.stockID,
+                qualityChecks:production.qualityChecks,
                 processDate: production.processDate,
                 logs: production.logs,
                 processedQuantity: production.processedQuantity
@@ -75,5 +75,6 @@ export async function getProductionById(id: string) {
         throw error;
     }
 }
+
 
 

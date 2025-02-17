@@ -53,16 +53,31 @@ CREATE TABLE rawMaterialStock (
 
 CREATE TABLE production (
                             productionID VARCHAR(50) PRIMARY KEY,
-                            stockID VARCHAR(50),
+                            qualityChecks BOOLEAN NOT NULL,
                             processDate DATE NOT NULL,
                             processedQuantity DECIMAL(10,2) NOT NULL,
-                            logs VARCHAR(255),
-                            FOREIGN KEY (stockID) REFERENCES rawMaterialStock(stockID)
+                            logs VARCHAR(255)
+
+);
+
+CREATE TABLE log (
+                          logCode VARCHAR(50) PRIMARY KEY ,
+                          logDate DATE NOT NULL,
+                          observation VARCHAR(255) ,
+                          productionID VARCHAR(50)  NULL,
+                          supplierID VARCHAR(50)  NULL,
+                          employeeID VARCHAR(50)  NULL,
+                          observedImage TEXT NULL,
+                          FOREIGN KEY (productionID) REFERENCES production(productionID) ,
+                          FOREIGN KEY (supplierID) REFERENCES supplier(supplierID),
+                          FOREIGN KEY (employeeID) REFERENCES employee(employeeID)
 );
 
 CREATE TABLE product (
-                          productID VARCHAR(50) PRIMARY KEY ,
-                          name VARCHAR(100) NOT NULL,
-                          type VARCHAR(50),
-                          pricePerKg DECIMAL(10,2) NOT NULL
+                           productID VARCHAR(50) PRIMARY KEY,
+                           name VARCHAR(100) NOT NULL,
+                           type VARCHAR(255) NOT NULL,
+                           pricePerKg DECIMAL(10,2) NOT NULL
 );
+
+

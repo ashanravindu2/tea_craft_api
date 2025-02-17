@@ -25,21 +25,33 @@ model employee {
   email         String   @unique(map: "email") @db.VarChar(100)
 }
 
+model log {
+  logCode       String   @id @db.VarChar(50)
+  logDate       DateTime @db.Date
+  observation   String?  @db.VarChar(255)
+  productionID  String?  @db.VarChar(50)
+  supplierID    String?  @db.VarChar(50)
+  employeeID    String?  @db.VarChar(50)
+  observedImage String?  @db.Text
+
+  @@index([employeeID], map: "employeeID")
+  @@index([productionID], map: "productionID")
+  @@index([supplierID], map: "supplierID")
+}
+
 model product {
   productID  String  @id @db.VarChar(50)
   name       String  @db.VarChar(100)
-  type       String? @db.VarChar(50)
+  type       String  @db.VarChar(255)
   pricePerKg Decimal @db.Decimal(10, 2)
 }
 
 model production {
   productionID      String   @id @db.VarChar(50)
-  stockID           String?  @db.VarChar(50)
+  qualityChecks     Boolean
   processDate       DateTime @db.Date
   processedQuantity Decimal  @db.Decimal(10, 2)
   logs              String?  @db.VarChar(255)
-
-  @@index([stockID], map: "stockID")
 }
 
 model rawmaterialstock {

@@ -1,6 +1,11 @@
 import express from "express";
 import Production from "../model/Production";
-import {addProduction, deleteProduction, getProductions, updateProduction} from "../database/production-data-store";
+import {
+    addProduction,
+    deleteProduction,
+    getProductions,
+    updateProduction
+} from "../database/production-data-store";
 
 const router = express.Router();
 
@@ -47,6 +52,9 @@ router.get("/all", async (req, res) => {
         res.status(500).send("Error getting productions");
     }
 });
+
+
+
 
 export default router;
 
