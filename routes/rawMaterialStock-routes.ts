@@ -2,7 +2,7 @@ import express from "express";
 import RawMaterialStock from "../model/RawMaterialStock";
 import {
     addRawMaterialStock,
-    deleteRawMaterialStock, getRawMaterialStocks, getStockQtyFilterDate,
+    deleteRawMaterialStock, getRawMaterialStocks,
     updateRawMaterialStock
 } from "../database/rawMaterialStock-data-store";
 
@@ -55,16 +55,16 @@ router.get("/all", async ( req, res) => {
     }
 });
 
-router.get("/getStock/:dateReceived", async (req, res) => {
-    const date: string = req.params.dateReceived;
-    try{
-        const stocks = await getStockQtyFilterDate(date);
-        res.status(200).json(stocks);
-    }catch (error) {
-        console.log(`Error getting process stock: ${error}`);
-        res.status(500).send("Error getting process stock");
-    }
-})
+// router.get("/getStock/:dateReceived", async (req, res) => {
+//     const date: string = req.params.dateReceived;
+//     try{
+//         const stocks = await getStockQtyFilterDate(date);
+//         res.status(200).json(stocks);
+//     }catch (error) {
+//         console.log(`Error getting process stock: ${error}`);
+//         res.status(500).send("Error getting process stock");
+//     }
+// })
 
 
 export default router;

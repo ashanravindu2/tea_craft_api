@@ -43,7 +43,7 @@ export async function updateRawMaterialStock(id: string, rawMaterialStock: RawMa
             data: {
                 supplierID: rawMaterialStock.supplierID,
                 quantityInKg: rawMaterialStock.quantityInKg,
-                dateReceived: new Date(),
+                dateReceived: rawMaterialStock.dateReceived,
             }
         });
     }catch (error){
@@ -74,20 +74,20 @@ export async function getRawMaterialStockById(id: string) {
     }
 }
 
-export async function getStockQtyFilterDate(date: string) {
-    try{
-       const result = await prisma.rawmaterialstock.aggregate({
-           where:{
-                dateReceived: new Date(date),
-              },
-              _sum:{
-                quantityInKg:true,
-           },
-       });
-
-       return result._sum?.quantityInKg || 0 ;
-    }catch (error){
-        console.error(`Error getting rawMaterialStocks: ${error}`);
-        throw error;
-    }
-}
+// export async function getStockQtyFilterDate(date: string) {
+//     try{
+//        const result = await prisma.rawmaterialstock.aggregate({
+//            where:{
+//                 dateReceived: new Date(date),
+//               },
+//               _sum:{
+//                 quantityInKg:true,
+//            },
+//        });
+//
+//        return result._sum?.quantityInKg || 0 ;
+//     }catch (error){
+//         console.error(`Error getting rawMaterialStocks: ${error}`);
+//         throw error;
+//     }
+// }
