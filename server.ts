@@ -13,12 +13,7 @@ import logRoutes from "./routes/log-routes";
 const app = express();
 
 
-// app.use('/',(req,res,next)=>{
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, content-type');
-//
-//     next();
+
 app.use(express.json());// })
 
 app.use(cors({
@@ -33,18 +28,11 @@ console.log("Loaded SECRET_KEY:", process.env.SECRET_KEY);
 dotenv.config();
 
 
-// app.use('/auth', userAdminRoutes);
-// app.use(authenticateToken);
-//
-// app.post('/supplier', authenticateToken ,(req: express.Request, res: express.Response) => {
-//     const supplier:Supplier = req.body
-//     const email = req.body.email;
-//     console.log(email  );
-//     res.json(supplier);
-//
-//
-// })
-app.use('/supplier', supplierRoutes);
+app.use('/auth', userAdminRoutes);
+app.use(authenticateToken);
+
+app.use('/supplier',authenticateToken,supplierRoutes)
+
 app.use('/employee',employeeRoutes)
 
 app.use('/rawMaterial',rawMaterialStockRoutes)

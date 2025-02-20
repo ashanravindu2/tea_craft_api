@@ -30,11 +30,13 @@ export async function addLog(log: Log) {
 }
 
 
-export async function deleteLog(code: string) {
+export async function deleteLog(id: string) {
+
+
     try{
         return await prisma.log.delete({
             where: {
-                logCode: code
+                logCode: id
             }
         });
     }catch (error) {

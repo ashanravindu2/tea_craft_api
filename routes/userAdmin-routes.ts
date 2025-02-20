@@ -9,7 +9,7 @@ dotenv.config();
 const router = express.Router();
 
 router.post("/login", async (req, res) => {
-    console.log('Login')
+
     const email = req.body.user.email;
     const password = req.body.user.password;
 
@@ -18,8 +18,10 @@ router.post("/login", async (req, res) => {
     try{
         const isVerified =  await verifyUserCredentials(user);
 
+
         if(isVerified){
-            const token = jwt.sign({ email }, process.env.SECRET_KEY as Secret, {expiresIn: "1m"});
+            console.log('Verified');
+            const token = jwt.sign({ email }, process.env.SECRET_KEY as Secret, {expiresIn: "5d"});
             const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN as Secret, {expiresIn: "7d"});
             res.json({accessToken : token, refreshToken : refreshToken});
         }else{
@@ -75,7 +77,8 @@ export function authenticateToken(req : express.Request, res : express.Response,
 
     try{
         const payload = jwt.verify(token as string, process.env.SECRET_KEY as Secret) as {email: string, iat: number};
-        console.log(payload.email);
+        console.log("swcwcwsdwd",payload.email);
+
         req.body.email = payload.email;
         next();
     }catch(err){
