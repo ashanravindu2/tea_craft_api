@@ -25,7 +25,10 @@ export async function verifyUserCredentials(verifyUser : UserAdmin) {
     });
     if (!user) {
         return false;
+        console.log("verifyUser false")
     }
 
+
+    console.log("verifyUserCredentials",verifyUser)
     return await bcrypt.compare(verifyUser.password, user.password);
 }

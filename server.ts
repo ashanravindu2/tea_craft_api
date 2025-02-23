@@ -17,11 +17,11 @@ const app = express();
 app.use(express.json());// })
 
 app.use(cors({
-    origin: "http://localhost:5173", // ✅ Allow requests from frontend
-    methods: ["GET", "POST", "PUT", "DELETE"], // ✅ Allow common methods
-    credentials: true // ✅ Allow cookies & authorization headers
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
 }));
-
 
 console.log("Loaded SECRET_KEY:", process.env.SECRET_KEY);
 
@@ -31,7 +31,7 @@ dotenv.config();
 app.use('/auth', userAdminRoutes);
 app.use(authenticateToken);
 
-app.use('/supplier',authenticateToken,supplierRoutes)
+app.use('/supplier',supplierRoutes)
 
 app.use('/employee',employeeRoutes)
 

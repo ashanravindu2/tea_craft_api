@@ -17,8 +17,6 @@ router.post("/login", async (req, res) => {
 
     try{
         const isVerified =  await verifyUserCredentials(user);
-
-
         if(isVerified){
             console.log('Verified');
             const token = jwt.sign({ email }, process.env.SECRET_KEY as Secret, {expiresIn: "5d"});
@@ -61,6 +59,7 @@ router.post("/refresh-token", async (req, res) => {
     try{
         const payload = jwt.verify(refresh_token as string, process.env.REFRESH_TOKEN as Secret) as {email: string, iat: number};
         const token = jwt.sign({ email: payload.email }, process.env.SECRET_KEY as Secret, {expiresIn: "1m"});
+
         res.json({accessToken : token});
     }catch(err){
         console.log(err);
@@ -70,6 +69,7 @@ router.post("/refresh-token", async (req, res) => {
 
 export function authenticateToken(req : express.Request, res : express.Response, next : express.NextFunction){
     const authHeader = req.headers.authorization;
+    console.log("Backend ekat token eka giya",authHeader);
     const token = authHeader?.split(' ')[1];
 
     console.log(token);
@@ -77,12 +77,12 @@ export function authenticateToken(req : express.Request, res : express.Response,
 
     try{
         const payload = jwt.verify(token as string, process.env.SECRET_KEY as Secret) as {email: string, iat: number};
-        console.log("swcwcwsdwd",payload.email);
-
         req.body.email = payload.email;
+
+
         next();
     }catch(err){
-        res.status(401).send(err);
+        res.status(401).send({ error: "Invalid or expired token" });
     }
 }
 
