@@ -25,7 +25,7 @@ export async function verifyUserCredentials(verifyUser : UserAdmin) {
     });
     if (!user) {
         return false;
-        console.log("verifyUser false")
+
     }
 
 

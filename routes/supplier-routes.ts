@@ -5,7 +5,7 @@ import {authenticateToken} from "./userAdmin-routes";
 
 const router = express.Router();
 
-router.post("/add", authenticateToken, async (req, res) => {
+router.post("/add", async (req, res) => {
    const supplier:Supplier = req.body as Supplier;
    try {
        const addedSupplier = await addSupplier(supplier);

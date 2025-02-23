@@ -22,7 +22,7 @@ CREATE TABLE supplier (
                            addressLine05 VARCHAR(255),
                            postalCode VARCHAR(20) NOT NULL,
                            contactNo VARCHAR(20) NOT NULL,
-                           email VARCHAR(100) UNIQUE NOT NULL
+                           email VARCHAR(100)  NOT NULL
 );
 
 CREATE TABLE employee(
@@ -40,7 +40,7 @@ CREATE TABLE employee(
                            addressLine05 VARCHAR(255),
                            postalCode VARCHAR(20) NOT NULL,
                            contactNo VARCHAR(20) NOT NULL,
-                           email VARCHAR(100) UNIQUE NOT NULL
+                           email VARCHAR(100)  NOT NULL
 );
 
 CREATE TABLE rawMaterialStock (

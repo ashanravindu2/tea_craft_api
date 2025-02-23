@@ -1,11 +1,12 @@
 import express from "express";
 import Employee from "../model/Employee";
 import {addEmployee, deleteEmployee, getEmployees, updateEmployee} from "../database/employee-data-store";
+import {authenticateToken} from "./userAdmin-routes";
 
 const router = express.Router();
 
 
-router.post("/add", async (req, res) => {
+router.post("/add",async (req, res) => {
     const employee : Employee = req.body as Employee;
     try{
         const addedEmployee = await addEmployee(employee);

@@ -22,7 +22,7 @@ model employee {
   addressLine05 String?  @db.VarChar(255)
   postalCode    String   @db.VarChar(20)
   contactNo     String   @db.VarChar(20)
-  email         String   @unique(map: "email") @db.VarChar(100)
+  email         String   @db.VarChar(100)
 }
 
 model log {
@@ -77,7 +77,7 @@ model supplier {
   addressLine05 String?  @db.VarChar(255)
   postalCode    String   @db.VarChar(20)
   contactNo     String   @db.VarChar(20)
-  email         String   @unique(map: "email") @db.VarChar(100)
+  email         String   @db.VarChar(100)
 }
 
 model useradmin {
