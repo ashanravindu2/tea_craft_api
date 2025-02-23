@@ -1,15 +1,13 @@
 import {PrismaClient} from "@prisma/client";
 import Production from "../model/Production";
 import Log from "../model/Log";
+import {Base64} from "js-base64";
 
 
 const prisma = new PrismaClient();
 
 export async function addLog(log: Log) {
     try {
-        const Base64 = require('js-base64').Base64;
-
-        const decoded = Base64.decode(log.observedImage);
 
 
         return await prisma.log.create({
@@ -20,7 +18,7 @@ export async function addLog(log: Log) {
                 productionID: log.productionID || null,
                 supplierID: log.supplierID || null,
                 employeeID: log.employeeID || null,
-                observedImage: decoded || null, // Store the buffer
+                observedImage: log.observedImage || null, // Store the buffer
             },
         });
     } catch (error) {
@@ -46,6 +44,9 @@ export async function deleteLog(id: string) {
 }
 
 export async function updateLog(code: string, log: Log) {
+
+
+
     try{
         return await prisma.log.update({
             where: {
@@ -56,7 +57,7 @@ export async function updateLog(code: string, log: Log) {
                 productionID: log.productionID,
                 supplierID: log.supplierID,
                 employeeID: log.employeeID,
-                observedImage: log.observedImage
+                observedImage:log.observedImage
 
             }
         });

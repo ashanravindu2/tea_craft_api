@@ -23,13 +23,13 @@ app.use(cors({
     credentials: true
 }));
 
-console.log("Loaded SECRET_KEY:", process.env.SECRET_KEY);
-
-dotenv.config();
-
-
-app.use('/auth', userAdminRoutes);
-app.use(authenticateToken);
+// console.log("Loaded SECRET_KEY:", process.env.SECRET_KEY);
+//
+// dotenv.config();
+//
+//
+// app.use('/auth', userAdminRoutes);
+// app.use(authenticateToken);
 
 app.use('/supplier',supplierRoutes)
 

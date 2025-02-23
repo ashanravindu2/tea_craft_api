@@ -32,7 +32,7 @@ model log {
   productionID  String?  @db.VarChar(50)
   supplierID    String?  @db.VarChar(50)
   employeeID    String?  @db.VarChar(50)
-  observedImage String?  @db.Text
+  observedImage String?  @db.LongText
 
   @@index([employeeID], map: "employeeID")
   @@index([productionID], map: "productionID")

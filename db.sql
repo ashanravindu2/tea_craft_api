@@ -67,7 +67,7 @@ CREATE TABLE log (
                           productionID VARCHAR(50)  NULL,
                           supplierID VARCHAR(50)  NULL,
                           employeeID VARCHAR(50)  NULL,
-                          observedImage TEXT NULL,
+                          observedImage LONGTEXT NULL,
                           FOREIGN KEY (productionID) REFERENCES production(productionID) ,
                           FOREIGN KEY (supplierID) REFERENCES supplier(supplierID),
                           FOREIGN KEY (employeeID) REFERENCES employee(employeeID)
