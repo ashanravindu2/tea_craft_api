@@ -7,7 +7,6 @@ import productionRoutes from "./routes/production-routes";
 import userAdminRoutes, {authenticateToken} from "./routes/userAdmin-routes";
 import dotenv from "dotenv";
 import cors from "cors";
-import Supplier from "./model/Supplier";
 import logRoutes from "./routes/log-routes";
 
 const app = express();
